@@ -9,9 +9,13 @@ This is a small Rails application that demonstrates a simple weather lookup tool
 - HTTP client wrapper around a third-party weather API
 - Test suite including unit and system testing patterns
 
-## Quick overview
+## Tech Stack
 
-The app's primary feature: given a postal code, display a short forecast (current, high, and low temperatures).
+- Rails 8.1.0
+- Ruby 3.2.8
+- PostgreSQL database
+- RSpec / Capybara for testing
+- Deployed on Heroku
 
 ## Project layout (relevant files)
 
