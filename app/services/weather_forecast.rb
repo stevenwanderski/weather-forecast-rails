@@ -1,5 +1,6 @@
 class WeatherForecast
-  CACHE_EXPIRY = ENV.fetch("CACHE_EXPIRY", 5).to_i
+  # Default cache expiration is 30 minutes
+  CACHE_EXPIRY = ENV.fetch("CACHE_EXPIRY", 30 * 60).to_i
 
   ForecastResult = Struct.new(
     :forecast,
