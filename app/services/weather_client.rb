@@ -1,9 +1,10 @@
 class WeatherClient
   API_URL = "https://api.weatherapi.com/v1/forecast.json"
 
-  Result = Struct.new(
+  FetchResult = Struct.new(
     :forecast,
-    :success
+    :success,
+    keyword_init: true
   )
 
   def self.fetch(postal:)
@@ -14,7 +15,7 @@ class WeatherClient
       })
 
       if !response.success?
-        return Result.new(
+        return FetchResult.new(
           forecast: nil,
           success: false
         )
@@ -28,12 +29,12 @@ class WeatherClient
         temp_low: parsed["forecast"]["forecastday"][0]["day"]["mintemp_f"].round
       }
 
-      Result.new(
+      FetchResult.new(
         forecast: forecast,
         success: true
       )
     rescue => e
-      Result.new(
+      FetchResult.new(
         forecast: nil,
         success: false
       )

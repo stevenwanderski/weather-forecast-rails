@@ -17,8 +17,8 @@ The app's primary feature: given a postal code, display a short forecast (curren
 
 - `app/controllers/home_controller.rb`: user-facing controller. Accepts the postal parameter and delegates to the `WeatherForecast` service.
 - `app/views/home/index.html.erb`: the input form and result rendering.
-- `app/services/weather_forecast.rb`: orchestrates cache checks, delegates to `WeatherClient`, writes to cache, returns a `Result` struct.
-- `app/services/weather_client.rb`: wraps Faraday, parses the JSON response from the third-party API and returns a `Result` struct.
+- `app/services/weather_forecast.rb`: orchestrates cache checks, delegates to `WeatherClient`, writes to cache, returns a `ForecastResult` struct.
+- `app/services/weather_client.rb`: wraps Faraday, parses the JSON response from the third-party API and returns a `FetchResult` struct.
 - `spec/services/weather_forecast_spec.rb`: unit tests for caching behavior and success/failure branches. (Uses in-memory cache in test examples.)
 - `spec/services/weather_client_spec.rb`: VCR-backed test to verify that real network calls are handled correctly.
 
@@ -53,5 +53,6 @@ Below is a short description of the key objects and their responsibilities.
 ## Next steps
 
 - Add a more robust caching solution such as Redis or the new Solid Cache.
+- This application was generated via a fresh Rails 8 installation and retains much of the provided boilerplate. Consideration should be given to reviewing the included tools and deciding which should remain (Javascript importmaps, Turbo, Stimulus, etc.)
 - Add a better frontend UI. Include form validation, loading state, and a dedicated results page.
 - Expand from accepting only a postal code to accepting a full address, auto-complete, suggestions, etc.

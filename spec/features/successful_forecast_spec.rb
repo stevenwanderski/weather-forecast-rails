@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe 'successful forecast', type: :feature do
   before do
-    allow(WeatherClient).to receive(:fetch).and_return({
+    allow(WeatherClient).to receive(:fetch).and_return(double(
       forecast: { temp_current: 51 },
       success: true
-    })
+    ))
   end
 
   it 'shows the forecast' do

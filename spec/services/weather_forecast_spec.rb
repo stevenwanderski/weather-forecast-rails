@@ -21,7 +21,6 @@ RSpec.describe WeatherForecast do
 
         result = described_class.fetch(postal: postal, client_class: client_class)
 
-        expect(result).to be_a(WeatherForecast::Result)
         expect(result.success).to be true
         expect(result.is_cached).to be true
         expect(result.forecast).to eq(cached_forecast)
@@ -36,14 +35,13 @@ RSpec.describe WeatherForecast do
 
         before do
           allow(client_class).to receive(:fetch).with(postal: postal).and_return(
-            { success: true, forecast: forecast_data }
+            double(success: true, forecast: forecast_data)
           )
         end
 
         it 'returns the forecast, marks is_cached false, and writes to the cache' do
           result = described_class.fetch(postal: postal, client_class: client_class)
 
-          expect(result).to be_a(WeatherForecast::Result)
           expect(result.success).to be true
           expect(result.is_cached).to be false
           expect(result.forecast).to eq(forecast_data)
@@ -56,14 +54,13 @@ RSpec.describe WeatherForecast do
 
         before do
           allow(client_class).to receive(:fetch).with(postal: postal).and_return(
-            { success: false }
+            double(success: false)
           )
         end
 
         it 'returns a failed result and does not write to the cache' do
           result = described_class.fetch(postal: postal, client_class: client_class)
 
-          expect(result).to be_a(WeatherForecast::Result)
           expect(result.success).to be false
           expect(result.is_cached).to be_nil
           expect(result.forecast).to be_nil

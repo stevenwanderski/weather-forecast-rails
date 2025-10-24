@@ -1,7 +1,7 @@
 class WeatherForecast
   CACHE_EXPIRY = 5.seconds
 
-  Result = Struct.new(
+  ForecastResult = Struct.new(
     :forecast,
     :is_cached,
     :success,
@@ -14,7 +14,7 @@ class WeatherForecast
     cached_forecast = Rails.cache.read(cache_key)
 
     if cached_forecast
-      return Result.new(
+      return ForecastResult.new(
         forecast: cached_forecast,
         is_cached: true,
         success: true
@@ -23,16 +23,16 @@ class WeatherForecast
 
     result = client_class.fetch(postal: postal)
 
-    if !result[:success]
-      return Result.new(
+    if !result.success
+      return ForecastResult.new(
         success: false
       )
     end
 
-    Rails.cache.write(cache_key, result[:forecast], expires_in: CACHE_EXPIRY)
+    Rails.cache.write(cache_key, result.forecast, expires_in: CACHE_EXPIRY)
 
-    Result.new(
-      forecast: result[:forecast],
+    ForecastResult.new(
+      forecast: result.forecast,
       is_cached: false,
       success: true
     )
