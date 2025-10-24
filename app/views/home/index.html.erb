@@ -1,6 +1,6 @@
 <h1 class="text-3xl font-bold mb-10">Weather Forecast</h1>
 
-<div class="max-w-[400px]">
+<div class="max-w-[400px] mb-8">
   <%= form_tag '/', method: :get do %>
     <div class="mb-4">
       <label for="postal" class="label">Postal Code</label>
@@ -17,3 +17,27 @@
     <button class="btn">Submit</button>
   <% end %>
 </div>
+
+<% if @has_error %>
+  <div class="forecast">
+    An error occured. Please try again.
+  </div>
+<% else %>
+  <% if @forecast.present? %>
+    <div class="forecast">
+      The current temperature for <%= @postal %> is <strong><%= @forecast[:temp_current] %>°</strong>.
+    </div>
+
+    <div>
+      High: <strong><%= @forecast[:temp_high] %>°</strong>
+    </div>
+
+    <div>
+      Low: <strong><%= @forecast[:temp_low] %>°</strong>
+    </div>
+
+    <% if @is_cached %>
+      (fetched from cache)
+    <% end %>
+  <% end %>
+<% end %>
