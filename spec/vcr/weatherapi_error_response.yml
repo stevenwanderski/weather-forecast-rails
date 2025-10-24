@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.weatherapi.com/v1/forecast.json?key=<WEATHER_API_KEY>&q=60463
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      date:
+      - Fri, 24 Oct 2025 14:09:22 GMT
+      content-type:
+      - application/json
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      vary:
+      - Accept-Encoding
+      server:
+      - BunnyCDN-IL1-894
+      cdn-pullzone:
+      - '93447'
+      cdn-uid:
+      - 8fa3a04a-75d9-4707-8056-b7b33c8ac7fe
+      cdn-requestcountrycode:
+      - US
+      age:
+      - '0'
+      cache-control:
+      - no-cache
+      content-encoding:
+      - gzip
+      via:
+      - 1.1 varnish (Varnish/7.1)
+      x-varnish:
+      - '129885839'
+      cdn-proxyver:
+      - '1.39'
+      cdn-requestpullsuccess:
+      - 'True'
+      cdn-requestpullcode:
+      - '401'
+      cdn-cachedat:
+      - 10/24/2025 14:09:22
+      cdn-edgestorageid:
+      - '1232'
+      cdn-requestid:
+      - b47884f8fc1e5127242ca3c625b5c29f
+      cdn-cache:
+      - MISS
+      cdn-status:
+      - '401'
+      cdn-requesttime:
+      - '0'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"code":2006,"message":"API key is invalid."}}'
+  recorded_at: Fri, 24 Oct 2025 14:09:22 GMT
+recorded_with: VCR 6.3.1

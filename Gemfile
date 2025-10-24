@@ -54,6 +54,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "dotenv-rails"
+  gem "rspec-rails"
 end
 
 group :development do
@@ -65,4 +66,5 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "vcr"
 end
