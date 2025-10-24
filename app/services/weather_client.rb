@@ -1,6 +1,11 @@
 class WeatherClient
   API_URL = "https://api.weatherapi.com/v1/forecast.json"
 
+  Result = Struct.new(
+    :forecast,
+    :success
+  )
+
   def self.fetch(postal:)
     begin
       response = Faraday.get(API_URL, {
@@ -9,10 +14,10 @@ class WeatherClient
       })
 
       if !response.success?
-        return {
+        return Result.new(
           forecast: nil,
           success: false
-        }
+        )
       end
 
       parsed = JSON.parse(response.body)
@@ -23,15 +28,15 @@ class WeatherClient
         temp_low: parsed["forecast"]["forecastday"][0]["day"]["mintemp_f"].round
       }
 
-      {
+      Result.new(
         forecast: forecast,
         success: true
-      }
+      )
     rescue => e
-      {
+      Result.new(
         forecast: nil,
         success: false
-      }
+      )
     end
   end
 end
