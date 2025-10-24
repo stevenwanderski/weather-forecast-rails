@@ -19,25 +19,27 @@
 </div>
 
 <% if @has_error %>
-  <div class="forecast">
+  <div class="text-red-500 font-semibold">
     An error occured. Please try again.
   </div>
-<% else %>
-  <% if @forecast.present? %>
-    <div class="forecast">
-      The current temperature for <%= @postal %> is <strong><%= @forecast[:temp_current] %>°</strong>.
-    </div>
+<% end %>
 
-    <div>
-      High: <strong><%= @forecast[:temp_high] %>°</strong>
-    </div>
+<% if !@has_error && @forecast.present? %>
+  <div class="mb-4">
+    The current temperature for <%= @postal %> is <strong><%= @forecast[:temp_current] %>°</strong>.
+  </div>
 
-    <div>
-      Low: <strong><%= @forecast[:temp_low] %>°</strong>
-    </div>
+  <div>
+    The high for today: <strong><%= @forecast[:temp_high] %>°</strong>
+  </div>
 
-    <% if @is_cached %>
+  <div>
+    The low for today: <strong><%= @forecast[:temp_low] %>°</strong>
+  </div>
+
+  <% if @is_cached %>
+    <div class="mt-4 text-sm">
       (fetched from cache)
-    <% end %>
+    </div>
   <% end %>
 <% end %>
