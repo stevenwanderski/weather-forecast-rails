@@ -8,11 +8,11 @@ RSpec.describe WeatherClient do
       it 'returns success true and a forecast with rounded temperatures' do
         result = described_class.fetch(postal: postal)
 
-        expect(result[:success]).to be true
-        expect(result[:forecast]).to be_a(Hash)
-        expect(result[:forecast][:temp_current]).to eq(36)
-        expect(result[:forecast][:temp_high]).to eq(59)
-        expect(result[:forecast][:temp_low]).to eq(32)
+        expect(result.success).to be true
+        expect(result.forecast).to be_a(Hash)
+        expect(result.forecast[:temp_current]).to eq(36)
+        expect(result.forecast[:temp_high]).to eq(59)
+        expect(result.forecast[:temp_low]).to eq(32)
       end
     end
 
@@ -20,8 +20,8 @@ RSpec.describe WeatherClient do
       it 'returns success false and nil forecast' do
         result = described_class.fetch(postal: postal)
 
-        expect(result[:success]).to be false
-        expect(result[:forecast]).to be_nil
+        expect(result.success).to be false
+        expect(result.forecast).to be_nil
       end
     end
   end
