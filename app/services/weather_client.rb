@@ -15,29 +15,37 @@ class WeatherClient
       })
 
       if !response.success?
+        Rails.logger.error("[WeatherClient] API response error: #{response.body}")
+
         return FetchResult.new(
           forecast: nil,
           success: false
         )
       end
 
-      parsed = JSON.parse(response.body)
-
-      forecast = {
-        temp_current: parsed["current"]["temp_f"].round,
-        temp_high: parsed["forecast"]["forecastday"][0]["day"]["maxtemp_f"].round,
-        temp_low: parsed["forecast"]["forecastday"][0]["day"]["mintemp_f"].round
-      }
+      forecast = parse_response(response)
 
       FetchResult.new(
         forecast: forecast,
         success: true
       )
     rescue => e
+      Rails.logger.error("[WeatherClient] Fetch class error: #{e.message}")
+
       FetchResult.new(
         forecast: nil,
         success: false
       )
     end
+  end
+
+  def self.parse_response(response)
+    parsed = JSON.parse(response.body)
+
+    {
+      temp_current: parsed["current"]["temp_f"].round,
+      temp_high: parsed["forecast"]["forecastday"][0]["day"]["maxtemp_f"].round,
+      temp_low: parsed["forecast"]["forecastday"][0]["day"]["mintemp_f"].round
+    }
   end
 end
