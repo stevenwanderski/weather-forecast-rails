@@ -9,9 +9,7 @@ class WeatherForecast
   )
 
   def self.fetch(postal:, client_class: WeatherClient)
-    cache_key = "forecast:#{postal}"
-
-    cached_forecast = Rails.cache.read(cache_key)
+    cached_forecast = cache_read(cache_key_for(postal))
 
     if cached_forecast
       return ForecastResult.new(
@@ -29,12 +27,24 @@ class WeatherForecast
       )
     end
 
-    Rails.cache.write(cache_key, result.forecast, expires_in: CACHE_EXPIRY)
+    cache_write(cache_key_for(postal), result.forecast)
 
     ForecastResult.new(
       forecast: result.forecast,
       is_cached: false,
       success: true
     )
+  end
+
+  def self.cache_key_for(postal)
+    "forecast:#{postal}"
+  end
+
+  def self.cache_read(key)
+    Rails.cache.read(key)
+  end
+
+  def self.cache_write(key, value)
+    Rails.cache.write(key, value, expires_in: CACHE_EXPIRY)
   end
 end
