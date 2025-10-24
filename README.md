@@ -56,7 +56,7 @@ Below is a short description of the key objects and their responsibilities.
 
 ## Next steps
 
-- Add a more robust caching solution such as Redis or the new Solid Cache.
+- Add a more robust caching solution such as Redis or Solid Cache.
 - Add an error reporting platform and report to it on known (and unknown) errors. Use a tool like Sentry.
 - Add performance metric monitoring with a tool like New Relic.
 - This application was generated via a fresh Rails 8 installation and retains much of the provided boilerplate. Consideration should be given to reviewing the included tools and deciding which should remain (Javascript importmaps, Turbo, Stimulus, etc.)
