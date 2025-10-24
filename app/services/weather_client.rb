@@ -9,10 +9,7 @@ class WeatherClient
 
   def self.fetch(postal:)
     begin
-      response = Faraday.get(API_URL, {
-        q: postal,
-        key: ENV["WEATHER_API_KEY"]
-      })
+      response = fetch_forecast(postal)
 
       if !response.success?
         Rails.logger.error("[WeatherClient] API response error: #{response.body}")
@@ -37,6 +34,13 @@ class WeatherClient
         success: false
       )
     end
+  end
+
+  def self.fetch_forecast(postal)
+    Faraday.get(API_URL, {
+      q: postal,
+      key: ENV["WEATHER_API_KEY"]
+    })
   end
 
   def self.parse_response(response)
