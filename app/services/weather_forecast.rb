@@ -1,5 +1,5 @@
 class WeatherForecast
-  CACHE_EXPIRY = 5.seconds
+  CACHE_EXPIRY = ENV.fetch("CACHE_EXPIRY", 5).to_i
 
   ForecastResult = Struct.new(
     :forecast,
