@@ -1,1 +1,19 @@
-<h1>Hello, home.</h1>
+<h1 class="text-3xl font-bold mb-10">Weather Forecast</h1>
+
+<div class="max-w-[400px]">
+  <%= form_tag '/', method: :get do %>
+    <div class="mb-4">
+      <label for="postal" class="label">Postal Code</label>
+
+      <input
+        type="text"
+        id="postal"
+        name="postal"
+        class="input"
+        value="<%= @postal %>"
+      >
+    </div>
+
+    <button class="btn">Submit</button>
+  <% end %>
+</div>
