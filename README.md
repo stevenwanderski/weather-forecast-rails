@@ -15,6 +15,7 @@ This is a small Rails application that demonstrates a simple weather lookup tool
 - Ruby 3.2.8
 - PostgreSQL database
 - RSpec / Capybara for testing
+- TailwindCSS
 - Deployed on Heroku
 
 ## Project layout (relevant files)
