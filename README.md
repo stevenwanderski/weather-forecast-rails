@@ -37,10 +37,10 @@ Below is a short description of the key objects and their responsibilities.
 - Public API: `WeatherForecast.fetch(postal:, client_class: WeatherClient)`. Returns a `ForecastResult` struct with keys `:forecast`, `:is_cached`, and `:success`.
 - Behavior:
 	- Checks `Rails.cache` for an existing forecast keyed by `"forecast:#{postal}"`.
-	- If cached, returns `Result.new(forecast: cached_forecast, is_cached: true, success: true)`.
+	- If cached, returns `ForecastResult.new(forecast: cached_forecast, is_cached: true, success: true)`.
 	- Otherwise calls `client_class.fetch(postal: postal)`.
-	- If the client returns `success: false`, returns `Result.new(success: false)`.
-	- If the client returns a forecast, its written to the cache with `expires_in: CACHE_EXPIRY` and returns a successful `Result` with `is_cached: false`.
+	- If the client returns `success: false`, returns `ForecastResult.new(success: false)`.
+	- If the client returns a forecast, its written to the cache with `expires_in: CACHE_EXPIRY` and returns a successful `ForecastResult` with `is_cached: false`.
 
 ### `WeatherClient` (app/services/weather_client.rb)
 
