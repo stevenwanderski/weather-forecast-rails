@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe WeatherClient do
-  describe '.fetch' do
-    let(:postal) { '60463' }
+  describe ".fetch" do
+    let(:postal) { "60463" }
 
-    context 'when the API returns successful response', vcr: { cassette_name: 'weatherapi_successful_response' } do
-      it 'returns success true and a forecast with rounded temperatures' do
+    context "when the API returns successful response", vcr: { cassette_name: "weatherapi_successful_response" } do
+      it "returns success true and a forecast with rounded temperatures" do
         result = described_class.fetch(postal: postal)
 
         expect(result.success).to be true
@@ -16,8 +16,8 @@ RSpec.describe WeatherClient do
       end
     end
 
-    context 'when the API returns an error', vcr: { cassette_name: 'weatherapi_error_response' } do
-      it 'returns success false and nil forecast' do
+    context "when the API returns an error", vcr: { cassette_name: "weatherapi_error_response" } do
+      it "returns success false and nil forecast" do
         result = described_class.fetch(postal: postal)
 
         expect(result.success).to be false
