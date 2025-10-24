@@ -30,10 +30,10 @@ This is a small Rails application that demonstrates a simple weather lookup tool
 
 Below is a short description of the key objects and their responsibilities.
 
-1) `WeatherForecast` (app/services/weather_forecast.rb)
+### `WeatherForecast` (app/services/weather_forecast.rb)
 
 - Purpose: orchestrator and cache manager.
-- Public API: `WeatherForecast.fetch(postal:, client_class: WeatherClient)`. Returns a `Result` struct with keys `:forecast`, `:is_cached`, and `:success`.
+- Public API: `WeatherForecast.fetch(postal:, client_class: WeatherClient)`. Returns a `ForecastResult` struct with keys `:forecast`, `:is_cached`, and `:success`.
 - Behavior:
 	- Checks `Rails.cache` for an existing forecast keyed by `"forecast:#{postal}"`.
 	- If cached, returns `Result.new(forecast: cached_forecast, is_cached: true, success: true)`.
@@ -41,10 +41,10 @@ Below is a short description of the key objects and their responsibilities.
 	- If the client returns `success: false`, returns `Result.new(success: false)`.
 	- If the client returns a forecast, its written to the cache with `expires_in: CACHE_EXPIRY` and returns a successful `Result` with `is_cached: false`.
 
-2) `WeatherClient` (app/services/weather_client.rb)
+### `WeatherClient` (app/services/weather_client.rb)
 
 - Purpose: a thin HTTP client and parser for the external weather API.
-- Public API: `WeatherClient.fetch(postal:)`. Returns a `Result` struct with keys `:forecast` and `:success`. The `:forecast` key is a hash containing the keys `:temp_current`, `:temp_high`, `:temp_low`.
+- Public API: `WeatherClient.fetch(postal:)`. Returns a `FetchResult` struct with keys `:forecast` and `:success`. The `:forecast` key is a hash containing the keys `:temp_current`, `:temp_high`, `:temp_low`.
 - Behavior:
 	- Calls `Faraday.get(API_URL, q: postal, key: ENV['WEATHER_API_KEY'])`.
 	- Parses `response.body` as JSON and extracts `temp_current`, `temp_high`, `temp_low` (rounded).
