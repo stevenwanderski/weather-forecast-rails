@@ -9,8 +9,7 @@
         type="text"
         id="postal"
         name="postal"
-        class="input"
-        required="required"
+        class="input required"
         value="<%= @postal %>"
       >
     </div>
@@ -44,3 +43,17 @@
     </div>
   <% end %>
 <% end %>
+
+<script>
+  $.validator.addMethod("postalCode", function(value, element) {
+    return this.optional(element) || /^\d{5}$/.test(value);
+  }, "Please enter a 5 digit US postal code.");
+
+  $('form').validate({
+    rules: {
+      postal: {
+        postalCode: true
+      }
+    }
+  })
+</script>
