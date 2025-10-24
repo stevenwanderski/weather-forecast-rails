@@ -40,7 +40,7 @@ Below is a short description of the key objects and their responsibilities.
 2) `WeatherClient` (app/services/weather_client.rb)
 
 - Purpose: a thin HTTP client and parser for the external weather API.
-- Public API: `WeatherClient.fetch(postal:)`. Returns a `Result` struct with keys `:forecast` and `:success`.
+- Public API: `WeatherClient.fetch(postal:)`. Returns a `Result` struct with keys `:forecast` and `:success`. The `:forecast` key is a hash containing the keys `:temp_current`, `:temp_high`, `:temp_low`.
 - Behavior:
 	- Calls `Faraday.get(API_URL, q: postal, key: ENV['WEATHER_API_KEY'])`.
 	- Parses `response.body` as JSON and extracts `temp_current`, `temp_high`, `temp_low` (rounded).
